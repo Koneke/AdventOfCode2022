@@ -2273,7 +2273,7 @@
     .OrderByDescending(elf => elf)
     /* // Part 1
     .First()
-    .total */
+    */
     // Part 2
     .Take(3)
     .Sum()
