@@ -2264,17 +2264,17 @@
 1438
 5524"
     .Split("\n\n")
-    .Select((chunk, index) => (
-        total: chunk
+    .Select(chunk => (
+        chunk
             .Split("\n")
             .Select(line => int.Parse(line.Trim()))
-            .Sum(),
-        index))
-    .OrderByDescending(elf => elf.total)
+            .Sum()
+        ))
+    .OrderByDescending(elf => elf)
     /* // Part 1
     .First()
     .total */
     // Part 2
     .Take(3)
-    .Sum(elf => elf.total)
+    .Sum()
 );
