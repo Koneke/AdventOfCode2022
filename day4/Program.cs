@@ -7,13 +7,11 @@
                 .Select(int.Parse)))
         // part 1:
         // .Count(pair =>
-        //     pair.First().First() <= pair.Last().First() &&
-        //     pair.First().Last() >= pair.Last().Last() ||
-        //     pair.Last().First() <= pair.First().First() &&
-        //     pair.Last().Last() >= pair.First().Last()));
+        //     Math.Abs(
+        //         Math.Sign(pair.First().First() - pair.Last().First())
+        //         + Math.Sign(pair.First().Last() - pair.Last().Last()))
+        //     != 2));
         // part 2:
-        .Count(pair => !(
-            pair.First().Last()  < pair.Last().First() ^
-            pair.First().First() > pair.Last().Last() ||
-            pair.Last().Last()   < pair.First().First() ^
-            pair.Last().First()  > pair.First().Last())));
+        .Count(pair =>
+            Math.Sign(pair.First().Last() - pair.Last().First())
+            != Math.Sign(pair.First().First() - pair.Last().Last())));
