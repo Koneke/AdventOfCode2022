@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-Console.WriteLine(
+﻿Console.WriteLine(
     string.Join("",
         string.Join("\n", File.ReadAllLines("input.txt")).Split("\n\n")
             .Chunk(2)
@@ -8,7 +6,7 @@ Console.WriteLine(
                 parts[1]
                     .Split("\n")
                     .SelectMany(operation =>
-                        new Regex(@"move (\d+) from (\d+) to (\d+)")
+                        new System.Text.RegularExpressions.Regex(@"move (\d+) from (\d+) to (\d+)")
                             .Matches(operation)
                             .Select(match =>
                                 match.Groups.Values
