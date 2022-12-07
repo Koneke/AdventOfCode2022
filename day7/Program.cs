@@ -2,9 +2,8 @@
     new[] {"input.txt"}
         .Select(file =>
             File.ReadAllLines(file)
-                .Aggregate((
-                        sizes: (IEnumerable<(string name, int size)>) new List<(string name, int size)> {("/", 0)},
-                        location: (IEnumerable<string>) new List<string> {"/"}),
+                .Aggregate<string, (IEnumerable<(string name, int size)> sizes, IEnumerable<string> location)>(
+                    (sizes: new List<(string name, int size)> {("/", 0)}, location: new List<string> {"/"}),
                     (current, next) =>
                         next.StartsWith("$")
                             ? next[2..] switch
@@ -15,16 +14,15 @@
                                 _ => (sizes: current.sizes.Append((
                                         name: $"{string.Join("/", current.location)}/{next[5..]}",
                                         size: 0)),
-                                    location: current.location.Append(next[5..]))
+                                      location: current.location.Append(next[5..]))
                             }
                             : next.Split(" ")[0].StartsWith("dir")
                                 ? current
-                                : (
-                                    sizes: current.sizes
+                                : (sizes: current.sizes
                                         .Select(dir => string.Join("/", current.location).StartsWith(dir.name)
                                             ? (dir.name, size: dir.size + int.Parse(next.Split(' ')[0]))
                                             : dir),
-                                    current.location)))
+                                   current.location)))
         // part 1:
         // .Select(result => result
         //     .sizes
